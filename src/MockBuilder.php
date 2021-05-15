@@ -118,9 +118,9 @@ PHP;
 		}
 
 		$relationship = '';
-		if($ref->isInterface()) {
+		if( $ref->isInterface() ) {
 			$relationship = 'implements \\' . $ref->getName();
-		}elseif( !$ref->isTrait() ) {
+		} elseif( !$ref->isTrait() ) {
 			$relationship = 'extends \\' . $ref->getName();
 		}
 

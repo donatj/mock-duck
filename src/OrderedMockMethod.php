@@ -4,7 +4,7 @@ namespace donatj\MockDuck;
 
 use donatj\MockDuck\Exceptions\MockMethodNotFoundException;
 
-class SubsequentMockMethod {
+class OrderedMockMethod {
 
 	/** @var callable */
 	private $invokables;
