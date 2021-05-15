@@ -1,5 +1,5 @@
 {
-	"name": "donatj/mockduck",
+	"name": "donatj/mock-duck",
 	"description": "Sane mocking library",
 	"type": "library",
 	"require-dev": {
