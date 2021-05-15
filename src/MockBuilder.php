@@ -105,6 +105,11 @@ PHP;
 		}
 
 		$relationship = '';
+		if($ref->isInterface()) {
+			$relationship = 'implements \\' . $ref->getName();
+		}elseif( !$ref->isTrait() ) {
+			$relationship = 'extends \\' . $ref->getName();
+		}
 
 		$mockName = $this->makeUniqueClassName($ref);
 		$fqcn     = "donatj\\MockDuck\\Mocks\\" . $mockName;
