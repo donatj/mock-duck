@@ -53,6 +53,19 @@ class MockBuilder {
 		return $new;
 	}
 
+	/** @var array<int, callable> */
+	private $mockMethods = [];
+
+	/**
+	 * @return $this
+	 */
+	public function withMockMethod( string $method, callable $invokable ) : self {
+		$new = clone $this;
+		$new->mockMethods[$method] = $invokable;
+
+		return $new;
+	}
+
 	private function buildMethodParameter( \ReflectionParameter $parameter ) : string {
 		$return = '';
 
