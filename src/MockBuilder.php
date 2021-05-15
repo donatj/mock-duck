@@ -39,6 +39,11 @@ class MockBuilder {
 	/** @var bool */
 	private $disabledConstructor = true;
 
+	/**
+	 * Enable or disable the original constructor
+	 *
+	 * @return $this
+	 */
 	public function withDisabledConstructor( bool $disable ) : self {
 		$new = clone $this;
 
