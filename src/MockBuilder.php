@@ -88,6 +88,12 @@ class MockBuilder {
 		return $return;
 	}
 
+	/**
+	 * Build the requested mock to the given spec
+	 *
+	 * @throws \ReflectionException
+	 * @return string The fully qualified class name of the new mock object
+	 */
 	public function buildMockClass() : string {
 		$ref     = new \ReflectionClass($this->className);
 		$methods = $ref->getMethods(\ReflectionMethod::IS_PUBLIC);
@@ -141,6 +147,13 @@ PHP;
 		return $fqcn;
 	}
 
+	/**
+	 * Build the requested mock to the given spec and instantiate it
+	 *
+	 * @param mixed ...$constructorArgs The arguments to pass to the constructor
+	 * @throws \ReflectionException
+	 * @return object The instance of the Mock
+	 */
 	public function buildMock( ...$constructorArgs ) : object {
 		$className = $this->buildMockClass();
 

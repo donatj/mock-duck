@@ -1,7 +1,7 @@
 # Mock Duck
 
-[![Latest Stable Version](https://poser.pugx.org/donatj/mockduck/version)](https://packagist.org/packages/donatj/mockduck)
-[![License](https://poser.pugx.org/donatj/mockduck/license)](https://packagist.org/packages/donatj/mockduck)
+[![Latest Stable Version](https://poser.pugx.org/donatj/mock-duck/version)](https://packagist.org/packages/donatj/mock-duck)
+[![License](https://poser.pugx.org/donatj/mock-duck/license)](https://packagist.org/packages/donatj/mock-duck)
 
 
 A Simple, Sane, Mock Builder for PHPUnit
@@ -15,7 +15,7 @@ Currently in a very early stage of development.
 Install the latest version with:
 
 ```bash
-composer require 'donatj/mockduck'
+composer require 'donatj/mock-duck'
 ```
 
 ## Documentation
@@ -50,8 +50,44 @@ Enable or disable the original constructor
 
 ---
 
-#### Undocumented Method: `MockBuilder->buildMockClass()`
+#### Method: MockBuilder->withMockMethod
+
+```php
+function withMockMethod(string $method, callable $invokable) : self
+```
+
+##### Returns:
+
+- ***$this***
 
 ---
 
-#### Undocumented Method: `MockBuilder->buildMock($constructorArgs)`
+#### Method: MockBuilder->buildMockClass
+
+```php
+function buildMockClass() : string
+```
+
+Build the requested mock to the given spec
+
+##### Returns:
+
+- ***string*** - The fully qualified class name of the new mock object
+
+---
+
+#### Method: MockBuilder->buildMock
+
+```php
+function buildMock($constructorArgs) : object
+```
+
+Build the requested mock to the given spec and instantiate it
+
+##### Parameters:
+
+- ***mixed*** `$constructorArgs` - The arguments to pass to the constructor
+
+##### Returns:
+
+- ***object*** - The instance of the Mock
