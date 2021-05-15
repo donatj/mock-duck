@@ -10,7 +10,7 @@ use donatj\MockDuck\Exceptions\MockMethodNotFoundException;
  * This is one of the only parts of MockDuck that is not functionally pure and
  * thus should be handled with special care
  */
-class MockOrderedMethod {
+class MethodOrdered implements InvokableMethodInterface {
 
 	/** @var callable */
 	private $invokables;
@@ -21,9 +21,6 @@ class MockOrderedMethod {
 
 	private $invokeIndex = 0;
 
-	/**
-	 * @internal
-	 */
 	public function __invoke( ...$args ) {
 		if( !isset($this->invokables[$this->invokeIndex]) ) {
 			throw new MockMethodNotFoundException(sprintf(

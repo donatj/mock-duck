@@ -6,9 +6,9 @@ use donatj\MockDuck\Exceptions\MockMethodNotFoundException;
 use PHPUnit\Framework\Constraint\Constraint;
 
 /**
- * Allows invoking a given method invokable when the arguments match expected
+ * Matches a given set of method parameters to a method invoker
  */
-class MockParameterMatchingMethod {
+class MethodParameterMatcher implements InvokableMethodInterface {
 
 	private $equality = true;
 

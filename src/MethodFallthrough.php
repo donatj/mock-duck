@@ -7,7 +7,7 @@ use donatj\MockDuck\Exceptions\MockMethodNotFoundException;
 /**
  * Executes given invokables until one is successful
  */
-class MockFallthroughMethod {
+class MethodFallthrough implements InvokableMethodInterface {
 
 	/** @var callable */
 	private $invokables;
