@@ -13,22 +13,18 @@ class MockBuilder {
 	 * @var \PHPUnit\Framework\Assert|null
 	 */
 	private $asserter;
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $className;
 
 	/**
 	 * MockBuilder constructor.
 	 */
-	public function __construct( string $className, Assert $asserter = null ) {
+	public function __construct( string $className, ?Assert $asserter = null ) {
 		$this->className = $className;
 		$this->asserter  = $asserter;
 	}
 
-	/**
-	 * @var string[]
-	 */
+	/** @var string[] */
 	private $excludedMethods = [];
 
 	public function withMethodsExcluded( string ...$methods ) : self {
@@ -40,9 +36,7 @@ class MockBuilder {
 		return $new;
 	}
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $disabledConstructor = true;
 
 	public function withDisabledConstructor( bool $disable ) : self {
@@ -84,10 +78,11 @@ class MockBuilder {
 		$mockedMethods = "";
 		foreach( $methods as $method ) {
 			if( $this->disabledConstructor && $method->isConstructor() ) {
-				$mockedMethods .= <<<PHP
+				$mockedMethods .= <<<'PHP'
 public function __constructor() {}
 
 PHP;
+
 				continue;
 			}
 
@@ -96,6 +91,7 @@ PHP;
 			foreach( $methodParameters as $methodParameter ) {
 				$mockedParams .= $this->buildMethodParameter($methodParameter) . ', ';
 			}
+
 			$mockedParams = rtrim($mockedParams, ', ');
 
 			$mockedMethods .= <<<PHP
@@ -103,7 +99,6 @@ function {$method->getName()} ( {$mockedParams} ) { }
 
 PHP;
 		}
-
 
 		$mockName  = null;
 		$cleanName = str_replace('\\', '_', $ref->getName());
@@ -123,7 +118,7 @@ PHP;
 
 		$classCode = <<<PHP
 
-namespace donatj\MockDuck\Mocks;
+namespace donatj\\MockDuck\\Mocks;
 
 class {$mockName} {
 {$mockedMethods}
