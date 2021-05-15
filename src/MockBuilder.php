@@ -13,6 +13,7 @@ class MockBuilder {
 	 * @var \PHPUnit\Framework\Assert|null
 	 */
 	private $asserter;
+
 	/** @var string */
 	private $className;
 
@@ -71,8 +72,6 @@ class MockBuilder {
 			$return .= ' = ' . var_export($parameter->getDefaultValue(), true);
 		}
 
-		//		drop($type->getName(), $parameter->getName(), $parameter->getDeclaringFunction()->getName(), $return);
-
 		return $return;
 	}
 
@@ -105,6 +104,32 @@ function {$method->getName()} ( {$mockedParams} ) { }
 PHP;
 		}
 
+		$relationship = '';
+
+		$mockName = $this->makeUniqueClassName($ref);
+		$fqcn     = "donatj\\MockDuck\\Mocks\\" . $mockName;
+
+		$classCode = <<<PHP
+
+namespace donatj\\MockDuck\\Mocks;
+
+class {$mockName} {$relationship} {
+{$mockedMethods}
+}
+PHP;
+
+		eval($classCode);
+
+		return $fqcn;
+	}
+
+	public function buildMock( ...$constructorArgs ) : object {
+		$className = $this->buildMockClass();
+
+		return new $className(...$constructorArgs);
+	}
+
+	private function makeUniqueClassName( \ReflectionClass $ref ) : string {
 		$mockName  = null;
 		$cleanName = str_replace('\\', '_', $ref->getName());
 		for( $i = 0; $i <= 1000; $i++ ) {
@@ -119,26 +144,7 @@ PHP;
 			throw new MockBuilderRuntimeException("failed to find unique name for mock of {$ref->getName()}");
 		}
 
-		$fqcn = "donatj\\MockDuck\\Mocks\\" . $mockName;
-
-		$classCode = <<<PHP
-
-namespace donatj\\MockDuck\\Mocks;
-
-class {$mockName} {
-{$mockedMethods}
-}
-PHP;
-
-		eval($classCode);
-
-		return $fqcn;
-	}
-
-	public function buildMock( ...$constructorArgs ) : object {
-		$className = $this->buildMockClass();
-
-		return new $className(...$constructorArgs);
+		return $mockName;
 	}
 
 }
