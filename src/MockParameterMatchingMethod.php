@@ -5,7 +5,10 @@ namespace donatj\MockDuck;
 use donatj\MockDuck\Exceptions\MockMethodNotFoundException;
 use PHPUnit\Framework\Constraint\Constraint;
 
-class ParameterMatchingMockMethod {
+/**
+ * Allows invoking a given method invokable when the arguments match expected
+ */
+class MockParameterMatchingMethod {
 
 	private $equality = true;
 
@@ -18,6 +21,11 @@ class ParameterMatchingMockMethod {
 
 	private $parameterMatches = [];
 
+	/**
+	 * @param callable $invokable The method invokable
+	 * @param mixed    ...$args   The arguments to match against. Accepts and matches against PHPUnit constraints
+	 * @return $this
+	 */
 	public function withMethodParameterMatch( callable $invokable, ...$args ) : self {
 		$new                     = clone $this;
 		$new->parameterMatches[] = [ $invokable, $args ];
