@@ -96,9 +96,10 @@ class MockBuilder {
 	public function buildMockClass() : string {
 		try {
 			$ref = new \ReflectionClass($this->className);
-		} catch(\ReflectionException $re) {
+		} catch( \ReflectionException $re ) {
 			throw new MockBuilderRuntimeException("failed to reflect {$this->className}", $re->getCode(), $re);
 		}
+
 		$methods = $ref->getMethods(\ReflectionMethod::IS_PUBLIC);
 
 		$mockName    = $this->makeUniqueClassName($ref);
@@ -112,6 +113,10 @@ public function __constructor() {}
 
 PHP;
 
+				continue;
+			}
+
+			if( in_array($method->getName(), $this->excludedMethods) ) {
 				continue;
 			}
 
