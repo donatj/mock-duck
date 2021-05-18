@@ -60,7 +60,7 @@ class MockBuilder {
 	 * @return $this
 	 */
 	public function withMockMethod( string $method, callable $invokable ) : self {
-		$new = clone $this;
+		$new                       = clone $this;
 		$new->mockMethods[$method] = $invokable;
 
 		return $new;
@@ -91,12 +91,18 @@ class MockBuilder {
 	/**
 	 * Build the requested mock to the given spec
 	 *
-	 * @throws \ReflectionException
 	 * @return string The fully qualified class name of the new mock object
 	 */
 	public function buildMockClass() : string {
-		$ref     = new \ReflectionClass($this->className);
+		try {
+			$ref = new \ReflectionClass($this->className);
+		} catch(\ReflectionException $re) {
+			throw new MockBuilderRuntimeException("failed to reflect {$this->className}", $re->getCode(), $re);
+		}
 		$methods = $ref->getMethods(\ReflectionMethod::IS_PUBLIC);
+
+		$mockName    = $this->makeUniqueClassName($ref);
+		$methodsName = "methods__{$mockName}";
 
 		$mockedMethods = "";
 		foreach( $methods as $method ) {
@@ -117,8 +123,12 @@ PHP;
 
 			$mockedParams = rtrim($mockedParams, ', ');
 
+			$methodNameVar = var_export($method->getName(), true);
+
 			$mockedMethods .= <<<PHP
-function {$method->getName()} ( {$mockedParams} ) { }
+function {$method->getName()} ( {$mockedParams} ) {
+	return (new Invoker( self::\${$methodsName}[$methodNameVar] ?? null, ...func_get_args() ))();
+}
 
 PHP;
 		}
@@ -130,19 +140,23 @@ PHP;
 			$relationship = 'extends \\' . $ref->getName();
 		}
 
-		$mockName = $this->makeUniqueClassName($ref);
-		$fqcn     = "donatj\\MockDuck\\Mocks\\" . $mockName;
+		$fqcn = "donatj\\MockDuck\\Mocks\\{$mockName}";
 
 		$classCode = <<<PHP
 
 namespace donatj\\MockDuck\\Mocks;
 
+use donatj\\MockDuck\\Invoker;
+
 class {$mockName} {$relationship} {
+public static \${$methodsName};
 {$mockedMethods}
 }
 PHP;
 
 		eval($classCode);
+
+		$fqcn::${$methodsName} = $this->mockMethods;
 
 		return $fqcn;
 	}
@@ -151,7 +165,6 @@ PHP;
 	 * Build the requested mock to the given spec and instantiate it
 	 *
 	 * @param mixed ...$constructorArgs The arguments to pass to the constructor
-	 * @throws \ReflectionException
 	 * @return object The instance of the Mock
 	 */
 	public function buildMock( ...$constructorArgs ) : object {

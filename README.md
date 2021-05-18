@@ -31,6 +31,8 @@ and wishes to indicate the parent should continue
 
 ### Class: \donatj\MockDuck\InvokableMethodInterface
 
+
+
 ### Class: \donatj\MockDuck\MethodFallthrough
 
 Executes given invokables until one is successful
@@ -86,6 +88,22 @@ function withMethodParameterMatch(callable $invokable, $args) : self
 ---
 
 #### Undocumented Method: `MethodParameterMatcher->__invoke($args)`
+
+### Class: \donatj\MockDuck\MethodReturns
+
+#### Method: MethodReturns->__construct
+
+```php
+function __construct($value)
+```
+
+##### Parameters:
+
+- ***mixed*** `$value` - The value to return
+
+---
+
+#### Undocumented Method: `MethodReturns->__invoke($args)`
 
 ### Class: \donatj\MockDuck\MockBuilder
 
