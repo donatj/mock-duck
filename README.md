@@ -33,19 +33,19 @@ and wishes to indicate the parent should continue
 
 
 
-### Class: \donatj\MockDuck\MethodFallthrough
+### Class: \donatj\MockDuck\MethodCallFallthrough
 
 Executes given invokables until one is successful
 
 
 
-#### Undocumented Method: `MethodFallthrough->__construct(callable ...$invokables)`
+#### Undocumented Method: `MethodCallFallthrough->__construct(callable ...$invokables)`
 
 ---
 
-#### Undocumented Method: `MethodFallthrough->__invoke($args)`
+#### Undocumented Method: `MethodCallFallthrough->__invoke($args)`
 
-### Class: \donatj\MockDuck\MethodOrdered
+### Class: \donatj\MockDuck\MethodCallOrdered
 
 Allows setting method invocations on subsequent calls
 
@@ -54,23 +54,23 @@ thus should be handled with special care
 
 
 
-#### Undocumented Method: `MethodOrdered->__construct(callable ...$invokables)`
+#### Undocumented Method: `MethodCallOrdered->__construct(callable ...$invokables)`
 
 ---
 
-#### Undocumented Method: `MethodOrdered->__invoke($args)`
+#### Undocumented Method: `MethodCallOrdered->__invoke($args)`
 
-### Class: \donatj\MockDuck\MethodParameterMatcher
+### Class: \donatj\MockDuck\MethodCallParameterMatcher
 
 Matches a given set of method parameters to a method invoker
 
 
 
-#### Undocumented Method: `MethodParameterMatcher->withEquality([ $equality = true])`
+#### Undocumented Method: `MethodCallParameterMatcher->withEquality([ $equality = true])`
 
 ---
 
-#### Method: MethodParameterMatcher->withMethodParameterMatch
+#### Method: MethodCallParameterMatcher->withMethodParameterMatch
 
 ```php
 function withMethodParameterMatch(callable $invokable, $args) : self
@@ -87,11 +87,11 @@ function withMethodParameterMatch(callable $invokable, $args) : self
 
 ---
 
-#### Undocumented Method: `MethodParameterMatcher->__invoke($args)`
+#### Undocumented Method: `MethodCallParameterMatcher->__invoke($args)`
 
-### Class: \donatj\MockDuck\MethodReturns
+### Class: \donatj\MockDuck\MethodCallReturns
 
-#### Method: MethodReturns->__construct
+#### Method: MethodCallReturns->__construct
 
 ```php
 function __construct($value)
@@ -103,7 +103,7 @@ function __construct($value)
 
 ---
 
-#### Undocumented Method: `MethodReturns->__invoke($args)`
+#### Undocumented Method: `MethodCallReturns->__invoke($args)`
 
 ### Class: \donatj\MockDuck\MockBuilder
 

@@ -2,7 +2,7 @@
 
 namespace donatj\MockDuck;
 
-class MethodReturns implements InvokableMethodInterface {
+class MethodCallReturns implements InvokableMethodInterface {
 
 	private $value;
 

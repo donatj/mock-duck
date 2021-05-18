@@ -8,7 +8,7 @@ use PHPUnit\Framework\Constraint\Constraint;
 /**
  * Matches a given set of method parameters to a method invoker
  */
-class MethodParameterMatcher implements InvokableMethodInterface {
+class MethodCallParameterMatcher implements InvokableMethodInterface {
 
 	private $equality = true;
 

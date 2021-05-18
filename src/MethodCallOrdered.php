@@ -10,7 +10,7 @@ use donatj\MockDuck\Exceptions\MockMethodNotFoundException;
  * This is one of the only parts of MockDuck that is not functionally pure and
  * thus should be handled with special care
  */
-class MethodOrdered implements InvokableMethodInterface {
+class MethodCallOrdered implements InvokableMethodInterface {
 
 	/** @var callable */
 	private $invokables;
